@@ -1,0 +1,13 @@
+@{
+    ViewBag.Title = "Home Page";
+}
+@Html.DevExpress().CheckBox(settings => {
+    settings.Name = "CheckBox1";
+    settings.Text = "AND/OR";
+    settings.Checked = false;
+    settings.Init = (s, e) => {
+        MVCxCheckBox checkbox = (MVCxCheckBox)s;
+        checkbox.ClientSideEvents.CheckedChanged = "function(s,e){GridView.PerformCallback()}";
+    };
+}).GetHtml()
+@Html.Action("GridViewPartial")

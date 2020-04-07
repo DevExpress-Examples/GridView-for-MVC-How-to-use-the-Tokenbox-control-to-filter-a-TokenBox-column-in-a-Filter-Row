@@ -1,0 +1,64 @@
+﻿@model List<WebApplication1.Models.Customer>
+@using DevExpress.Data.Filtering
+@using WebApplication1.Code;
+@functions {
+    public void OnProcessColumnAutoFilter(object sender, ASPxGridViewAutoFilterEventArgs e) {
+        if (e.Column.FieldName != "Licenses")
+            return;
+        if (e.Kind == GridViewAutoFilterEventKind.CreateCriteria) {
+            var ids = e.Value.Split(';');
+            var operandProp = new OperandProperty(e.Column.FieldName);
+            var criteriaList = Enumerable.Range(0, ids.Length).Select(s => new FunctionOperator(FunctionOperatorType.Contains, operandProp, ids[s]));
+            GroupOperatorType groupOperatorType = ViewBag.andOrValue ? GroupOperatorType.And : GroupOperatorType.Or;
+            var criteria = new GroupOperator(groupOperatorType, criteriaList);
+            e.Criteria = criteria;
+        }
+        else {
+            e.Value = CriteriaHelper.ExtractDisplayText(e.Criteria);
+        }
+    }
+    public void OnAutoFilterCellEditorCreate(object sender, ASPxGridViewEditorCreateEventArgs e) {
+        if (e.Column.FieldName != "Licenses")
+            return;
+        e.EditorProperties = new TokenBoxProperties();
+        ConfigureTokenBoxProperties(e.EditorProperties as TokenBoxProperties);
+    }
+    public void ConfigureTokenBoxProperties(TokenBoxProperties tokenBoxSettings) {
+        if (tokenBoxSettings == null)
+            tokenBoxSettings = new TokenBoxProperties();
+        tokenBoxSettings.ValueField = "LicenseID";
+        tokenBoxSettings.TextField = "LicenseName";
+        tokenBoxSettings.ValueSeparator = ';';
+        tokenBoxSettings.AllowCustomTokens = false;
+        tokenBoxSettings.DataSource = ViewBag.Licenses;
+        tokenBoxSettings.ItemValueType = typeof(Int32);
+        tokenBoxSettings.Width = 300;
+    }
+}
+
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "GridView";
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "GridViewPartial" };
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.Columns.Add("CustomerID");
+    settings.Columns.Add("CustomerName");
+    settings.Columns.Add(column => {
+        column.FieldName = "Licenses";
+        column.ColumnType = MVCxGridViewColumnType.TokenBox;
+        column.Settings.AllowSort = DefaultBoolean.True;
+        var tokenBoxSettings = column.PropertiesEdit as TokenBoxProperties;
+        ConfigureTokenBoxProperties(tokenBoxSettings);
+    });
+
+    settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    settings.KeyFieldName = "CustomerID";
+    settings.Settings.ShowFilterRow = true;
+
+    settings.ProcessColumnAutoFilter = OnProcessColumnAutoFilter;
+    settings.AutoFilterCellEditorCreate = OnAutoFilterCellEditorCreate;
+    settings.ClientSideEvents.BeginCallback = "function(s,e){e.customArgs['andOrValue'] = CheckBox1.GetValue();}";
+
+}).Bind(Model).GetHtml()
