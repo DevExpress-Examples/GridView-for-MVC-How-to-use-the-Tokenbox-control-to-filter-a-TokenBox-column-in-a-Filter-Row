@@ -6,12 +6,8 @@
         if (e.Column.FieldName != "Licenses")
             return;
         if (e.Kind == GridViewAutoFilterEventKind.CreateCriteria) {
-            var ids = e.Value.Split(';');
-            var operandProp = new OperandProperty(e.Column.FieldName);
-            var criteriaList = Enumerable.Range(0, ids.Length).Select(s => new FunctionOperator(FunctionOperatorType.Contains, operandProp, ids[s]));
             GroupOperatorType groupOperatorType = ViewBag.andOrValue ? GroupOperatorType.And : GroupOperatorType.Or;
-            var criteria = new GroupOperator(groupOperatorType, criteriaList);
-            e.Criteria = criteria;
+            e.Criteria = CriteriaHelper.GetCriteriaByText(e.Value, e.Column.FieldName, groupOperatorType);
         }
         else {
             e.Value = CriteriaHelper.ExtractDisplayText(e.Criteria);

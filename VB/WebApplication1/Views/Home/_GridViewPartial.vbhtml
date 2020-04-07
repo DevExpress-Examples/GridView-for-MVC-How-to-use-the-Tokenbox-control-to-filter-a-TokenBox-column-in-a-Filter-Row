@@ -6,12 +6,8 @@
         If e.Column.FieldName <> "Licenses" Then Return
 
         If e.Kind = GridViewAutoFilterEventKind.CreateCriteria Then
-            Dim ids = e.Value.Split(";"c)
-            Dim operandProp = New OperandProperty(e.Column.FieldName)
-            Dim criteriaList = Enumerable.Range(0, ids.Length).[Select](Function(s) New FunctionOperator(FunctionOperatorType.Contains, operandProp, ids(s)))
             Dim groupOperatorType As GroupOperatorType = If(ViewBag.andOrValue, GroupOperatorType.[And], GroupOperatorType.[Or])
-            Dim criteria = New GroupOperator(groupOperatorType, criteriaList)
-            e.Criteria = criteria
+            e.Criteria = CriteriaHelper.GetCriteriaByText(e.Value, e.Column.FieldName, groupOperatorType)
         Else
             e.Value = CriteriaHelper.ExtractDisplayText(e.Criteria)
         End If

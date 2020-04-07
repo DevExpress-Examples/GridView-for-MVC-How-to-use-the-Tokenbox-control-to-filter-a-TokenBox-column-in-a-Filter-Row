@@ -11,6 +11,13 @@ namespace WebApplication1.Code {
             visitor.AcceptOperator(criteria);
             return string.Join(";", visitor.Values);
         }
+        public static CriteriaOperator GetCriteriaByText(string text,string columnName, GroupOperatorType groupOperatorType) {
+            var ids = text.Split(';');
+            var operandProp = new OperandProperty(columnName);
+            var criteriaList = Enumerable.Range(0, ids.Length).Select(s => new FunctionOperator(FunctionOperatorType.Contains, operandProp, ids[s]));           
+            var criteria = new GroupOperator(groupOperatorType, criteriaList);
+            return criteria;
+        }
     }
 
     public class CustomVisitor : IClientCriteriaVisitor<CriteriaOperator> {

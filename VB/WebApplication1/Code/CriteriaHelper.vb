@@ -10,12 +10,19 @@ Namespace WebApplication1.Code
 		Private Sub New()
 		End Sub
 
-		Public Shared Function ExtractDisplayText(ByVal criteria As CriteriaOperator) As String
-			Dim visitor = New CustomVisitor()
-			visitor.AcceptOperator(criteria)
-			Return String.Join(";", visitor.Values)
-		End Function
-	End Class
+        Public Shared Function ExtractDisplayText(ByVal criteria As CriteriaOperator) As String
+            Dim visitor = New CustomVisitor()
+            visitor.AcceptOperator(criteria)
+            Return String.Join(";", visitor.Values)
+        End Function
+        Public Shared Function GetCriteriaByText(ByVal text As String, ByVal columnName As String, ByVal groupOperatorType As GroupOperatorType) As CriteriaOperator
+            Dim ids = text.Split(";"c)
+            Dim operandProp = New OperandProperty(columnName)
+            Dim criteriaList = Enumerable.Range(0, ids.Length).[Select](Function(s) New FunctionOperator(FunctionOperatorType.Contains, operandProp, ids(s)))
+            Dim criteria = New GroupOperator(groupOperatorType, criteriaList)
+            Return criteria
+        End Function
+    End Class
 
 	Public Class CustomVisitor
 		Implements IClientCriteriaVisitor(Of CriteriaOperator)
