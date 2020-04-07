@@ -9,6 +9,7 @@ This example illustrates how to:
 
 * [HomeController.cs](./CS/WebApplication1/Controllers/HomeController.cs)(VB: [HomeController.vb](./VB/WebApplication1/Controllers/HomeController.vb))
 * [_GridViewPartial.cshtml](./CS/WebApplication1/Views/Home/_GridViewPartial.cshtml)(VB: [_GridViewPartial.vbhtml](./VB/WebApplication1/Views/Home/_GridViewPartial.vbhtml))
+* [CriteriaHelper.cs](./CS/WebApplication1/Code/CriteriaHelper.cs)(VB: [CriteriaHelper.vb](./VB/WebApplication1/Code/CriteriaHelper.vb))
 
 <!-- default file list end -->
 
