@@ -4,9 +4,6 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
 # Grid View for ASP.NET MVC - How to display the TokenBox editor in a filter row cell
-<!-- run online -->
-**[[Run Online]](https://codecentral.devexpress.com/253792317/)**
-<!-- run online end -->
 
 This example demonstrates how to display the [TokenBox](https://docs.devexpress.com/AspNetMvc/16412/components/data-editors-extensions/tokenbox) editor in the Grid View's filter row for a column of the [TokenBox](https://docs.devexpress.com/AspNetMvc/DevExpress.Web.Mvc.MVCxGridViewColumnType) type.
 
