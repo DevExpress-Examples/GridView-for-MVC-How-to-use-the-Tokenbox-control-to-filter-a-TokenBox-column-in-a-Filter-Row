@@ -26,7 +26,7 @@ Handle the [AutoFilterCellEditorCreate](https://docs.devexpress.com/AspNet/DevEx
 
 - [Access/modify a filter expression on the controller and save/load custom filters](https://github.com/DevExpress-Examples/asp-net-mvc-grid-access-and-modify-filter-expressions)
 <!-- feedback -->
-## Does this example address your development requirements/objectives?
+## Does This Example Address Your Development Requirements/Objectives?
 
 [<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=GridView-for-MVC-How-to-use-the-Tokenbox-control-to-filter-a-TokenBox-column-in-a-Filter-Row&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=GridView-for-MVC-How-to-use-the-Tokenbox-control-to-filter-a-TokenBox-column-in-a-Filter-Row&~~~was_helpful=no)
 
